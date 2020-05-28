@@ -7,7 +7,8 @@ export const Container = styled.div`
   height: 100vh;
 
   display: flex;
-  align-items: stretch;
+  align-items: stretch
+    /*stretch to fill the container (still respect min-width/max-width)*/;
 `;
 
 export const Content = styled.div`
@@ -27,40 +28,6 @@ export const Content = styled.div`
 
     h1 {
       margin-bottom: 24px;
-    }
-
-    input {
-      background: #232129;
-      border-radius: 10px;
-      border: 2px solid #232129;
-      padding: 10px;
-      width: 100%;
-      color: #f4ede8;
-
-      &::placeholder {
-        color: #666360;
-      }
-
-      & + input {
-        margin-top: 10px;
-      }
-    }
-
-    button {
-      background: #ff9000;
-      height: 40px;
-      border-radius: 10px;
-      border: 0;
-      padding: 0 10px;
-      color: #312e38;
-      width: 100%;
-      font-weight: 500;
-      margin-top: 20px;
-      transition: background-color 0.2s;
-
-      &:hover {
-        background: ${shade(0.2, '#ff9000')};
-      }
     }
 
     a {
