@@ -44,7 +44,7 @@ export const Content = styled.div`
   }
 
   > a {
-    color: #ff9000;
+    color: #f4edc8;
     display: block;
     margin-top: 24px;
     text-decoration: none;
@@ -54,7 +54,7 @@ export const Content = styled.div`
     align-items: center;
 
     svg {
-      margin-right: 16px;
+      margin-right: 5px;
     }
 
     &:hover {
