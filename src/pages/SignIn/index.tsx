@@ -1,12 +1,12 @@
 // React imports
-import React, { useRef, useCallback, useContext } from 'react';
+import React, { useRef, useCallback } from 'react';
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
 
 // External components; Utils and Contexts
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
-import { AuthContext } from '../../contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 import getValidationErrors from '../../utils/getValidationErrors';
 
 // Assets imports
@@ -28,7 +28,7 @@ interface SignInFormData {
 const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
-  const { user, signIn } = useContext(AuthContext);
+  const { user, signIn } = useAuth();
 
   console.log(user);
 
