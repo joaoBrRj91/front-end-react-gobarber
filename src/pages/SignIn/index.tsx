@@ -30,8 +30,6 @@ const SignIn: React.FC = () => {
 
   const { user, signIn } = useAuth();
 
-  console.log(user);
-
   const handleSubmit = useCallback(
     async (data: SignInFormData) => {
       try {
@@ -52,11 +50,13 @@ const SignIn: React.FC = () => {
           password: data.password,
         });
       } catch (error) {
+        if (error instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(error);
+          formRef.current?.setErrors(errors);
+        }
+
+        // disparar um toast
         console.log(error);
-
-        const errors = getValidationErrors(error);
-
-        formRef.current?.setErrors(errors);
       }
     },
     [signIn],
