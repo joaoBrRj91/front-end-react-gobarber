@@ -2,6 +2,7 @@
 import React, { useCallback, useRef } from 'react';
 
 // External imports
+import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 import { FiArrowLeft, FiMail, FiUser, FiLock } from 'react-icons/fi';
 import { Form } from '@unform/web';
@@ -16,7 +17,7 @@ import Input from '../../components/input';
 import Button from '../../components/button';
 
 // Styles Components imports
-import { Container, Content, Background } from './styles';
+import { Container, Content, AnimationContainer, Background } from './styles';
 
 const SignUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
@@ -51,38 +52,40 @@ const SignUp: React.FC = () => {
       <Container>
         <Background />
         <Content>
-          <img src={logoImg} alt="GoBarber" />
+          <AnimationContainer>
+            <img src={logoImg} alt="GoBarber" />
 
-          <Form ref={formRef} initialData={{}} onSubmit={handleSubmit}>
-            <h1>Faça seu cadastro</h1>
+            <Form ref={formRef} initialData={{}} onSubmit={handleSubmit}>
+              <h1>Faça seu cadastro</h1>
 
-            <Input
-              icon={FiUser}
-              name="name"
-              type="text"
-              placeholder="Informe o nome"
-            />
+              <Input
+                icon={FiUser}
+                name="name"
+                type="text"
+                placeholder="Informe o nome"
+              />
 
-            <Input
-              icon={FiMail}
-              name="email"
-              type="text"
-              placeholder="Informar o E-mail"
-            />
+              <Input
+                icon={FiMail}
+                name="email"
+                type="text"
+                placeholder="Informar o E-mail"
+              />
 
-            <Input
-              icon={FiLock}
-              name="password"
-              type="password"
-              placeholder="Informar a senha"
-            />
+              <Input
+                icon={FiLock}
+                name="password"
+                type="password"
+                placeholder="Informar a senha"
+              />
 
-            <Button type="submit">Cadastrar</Button>
-          </Form>
+              <Button type="submit">Cadastrar</Button>
+            </Form>
 
-          <a href="CreateAccount">
-            <FiArrowLeft /> Voltar para o logon
-          </a>
+            <Link to="/">
+              <FiArrowLeft /> Voltar para o logon
+            </Link>
+          </AnimationContainer>
         </Content>
       </Container>
     </>

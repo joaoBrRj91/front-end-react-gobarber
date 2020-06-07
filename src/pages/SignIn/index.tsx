@@ -3,6 +3,7 @@ import React, { useRef, useCallback } from 'react';
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
 
 // External components; Utils and Contexts
+import { Link } from 'react-router-dom';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
@@ -18,7 +19,7 @@ import Input from '../../components/input';
 import Button from '../../components/button';
 
 // Styles Components imports
-import { Container, Content, Background } from './styles';
+import { Container, Content, AnimationContainer, Background } from './styles';
 
 // Interfaces
 interface SignInFormData {
@@ -75,33 +76,35 @@ const SignIn: React.FC = () => {
     <>
       <Container>
         <Content>
-          <img src={logoImg} alt="GoBarber" />
+          <AnimationContainer>
+            <img src={logoImg} alt="GoBarber" />
 
-          <Form ref={formRef} onSubmit={handleSubmit}>
-            <h1>Faça seu logon</h1>
+            <Form ref={formRef} onSubmit={handleSubmit}>
+              <h1>Faça seu logon</h1>
 
-            <Input
-              icon={FiMail}
-              name="email"
-              type="text"
-              placeholder="Informar o E-mail"
-            />
+              <Input
+                icon={FiMail}
+                name="email"
+                type="text"
+                placeholder="Informar o E-mail"
+              />
 
-            <Input
-              icon={FiLock}
-              name="password"
-              type="password"
-              placeholder="Informar a senha"
-            />
+              <Input
+                icon={FiLock}
+                name="password"
+                type="password"
+                placeholder="Informar a senha"
+              />
 
-            <Button type="submit">Entrar</Button>
+              <Button type="submit">Entrar</Button>
 
-            <a href="forgot">Esqueci minha senha</a>
-          </Form>
+              <a href="forgot">Esqueci minha senha</a>
+            </Form>
 
-          <a href="CreateAccount">
-            <FiLogIn /> Criar conta
-          </a>
+            <Link to="/signup">
+              <FiLogIn /> Criar conta
+            </Link>
+          </AnimationContainer>
         </Content>
 
         <Background />
