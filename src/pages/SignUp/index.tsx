@@ -2,12 +2,14 @@
 import React, { useCallback, useRef } from 'react';
 
 // External imports
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 import { FiArrowLeft, FiMail, FiUser, FiLock } from 'react-icons/fi';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import getValidationErrors from '../../utils/getValidationErrors';
+import api from '../../services/apiClient';
+import { useToast } from '../../hooks/ToastContext';
 
 // Assets imports
 import logoImg from '../../assets/logo.svg';
@@ -19,33 +21,62 @@ import Button from '../../components/button';
 // Styles Components imports
 import { Container, Content, AnimationContainer, Background } from './styles';
 
+interface SignUpFormData {
+  name: string;
+  email: string;
+  password: string;
+}
+
 const SignUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+  const { addToast } = useToast();
+  const history = useHistory();
 
-  const handleSubmit = useCallback(async (data: object) => {
-    try {
-      formRef.current?.setErrors({});
+  const handleSubmit = useCallback(
+    async (data: SignUpFormData) => {
+      try {
+        formRef.current?.setErrors({});
 
-      const schema = Yup.object().shape({
-        name: Yup.string().required('Nome obrigatório'),
-        email: Yup.string()
-          .required('E-mail obrigatório')
-          .email('Digite um e-mail válido'),
-        password: Yup.string().min(6, 'No mínimo 6 dígitos'),
-      });
+        const schema = Yup.object().shape({
+          name: Yup.string().required('Nome obrigatório'),
+          email: Yup.string()
+            .required('E-mail obrigatório')
+            .email('Digite um e-mail válido'),
+          password: Yup.string().min(6, 'No mínimo 6 dígitos'),
+        });
 
-      await schema.validate(data, {
-        abortEarly: false,
-      });
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log(error);
+        await schema.validate(data, {
+          abortEarly: false,
+        });
 
-      const errors = getValidationErrors(error);
+        await api.post('users', data);
 
-      formRef.current?.setErrors(errors);
-    }
-  }, []);
+        history.push('/');
+
+        addToast({
+          type: 'success',
+          title: 'Cadastro realizado',
+          description: 'Você já pode fazer seu logon no GoBarber',
+        });
+      } catch (error) {
+        if (error instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(error);
+          formRef.current?.setErrors(errors);
+          return;
+        }
+
+        // disparar um toast
+        console.log(error);
+
+        addToast({
+          type: 'error',
+          title: 'Erro no cadastro',
+          description: 'Ocorreu um erro ao fazer o cadastro, tente novamente',
+        });
+      }
+    },
+    [history, addToast],
+  );
 
   return (
     <>
