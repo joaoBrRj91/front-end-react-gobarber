@@ -65,9 +65,6 @@ const SignUp: React.FC = () => {
           return;
         }
 
-        // disparar um toast
-        console.log(error);
-
         addToast({
           type: 'error',
           title: 'Erro no cadastro',
