@@ -10,7 +10,7 @@ interface CustomRouteProps extends RouteProps {
 
 // true/true => ok
 // true/false => Redirecionar para o login
-// false/true => Redirecionar para o dashboard(Login e criação de conta)
+// false/true => Redirecionar para o dashboard(está na Login e criação de conta)
 // false/false => ok
 const CustomRoute: React.FC<CustomRouteProps> = ({
   isPrivate = false,
